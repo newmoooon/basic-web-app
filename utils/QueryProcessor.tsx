@@ -76,38 +76,38 @@ export default function QueryProcessor(query: string): string {
   //     return numbers.reduce((sum, n) => sum + n, 0).toString();
   //   }
   // }
-  if (lowerQuery.includes("multiplied by")) {
+  if (query.includes("multiplied by")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length >= 2) {
       return (numbers[0] * numbers[1]).toString();
     }
   }
 
-  if (lowerQuery.includes("divided by")) {
+  if (query.includes("divided by")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length >= 2) {
       return (numbers[0] / numbers[1]).toString();
     }
   }
 
-  if (lowerQuery.includes("minus")) {
+  if (query.includes("minus")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length >= 2) {
       return (numbers[0] - numbers[1]).toString();
     }
   }
 
-  if (lowerQuery.includes("plus")) {
+  if (query.includes("plus")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers) {
       return numbers.reduce((sum, n) => sum + n, 0).toString();
     }
   }
 
-  if (query.toLowerCase().includes("to the power of")) {
+  if (query.includes("to the power of")) {
     const numbers = query.match(/\d+/g);
     if (numbers && numbers.length >= 2) {
-      // Using BigInt ensures we don't lose precision on massive numbers!
+      // @ts-ignore - this forces TypeScript to ignore the BigInt error
       return (BigInt(numbers[0]) ** BigInt(numbers[1])).toString();
     }
   }
