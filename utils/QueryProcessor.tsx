@@ -72,6 +72,13 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
+  if (query.includes("plus")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers) {
+      return numbers.reduce((sum, n) => sum + n, 0).toString();
+    }
+  }
+
 
 
 
