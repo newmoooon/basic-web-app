@@ -1,3 +1,4 @@
+
 export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("shakespeare")) {
     return (
@@ -21,17 +22,13 @@ export default function QueryProcessor(query: string): string {
       return Math.max(...numbers).toString();
     }
   }
-  // const addMatch = query.match(/What is (\d+) plus (\d+)/i);
-  // if (addMatch) {
-  //   return (parseInt(addMatch[1]) + parseInt(addMatch[2])).toString();
-  // }
 
-  if (query.includes("multiplied by")) {
-    const numbers = query.match(/\d+/g)?.map(Number);
-    if (numbers && numbers.length >= 2) {
-      return (numbers[0] * numbers[1]).toString();
-    }
-  }
+  // if (query.includes("multiplied by")) {
+  //   const numbers = query.match(/\d+/g)?.map(Number);
+  //   if (numbers && numbers.length >= 2) {
+  //     return (numbers[0] * numbers[1]).toString();
+  //   }
+  // }
   if (query.includes("Which of the following numbers is both a square and a cube")) {
     const numbers = query.match(/\d+/g);
     if (numbers) {
@@ -59,33 +56,63 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
-  if (query.includes("minus")) {
+  // if (query.includes("minus")) {
+  //   const numbers = query.match(/\d+/g)?.map(Number);
+  //   if (numbers && numbers.length >= 2) {
+  //     return (numbers[0] - numbers[1]).toString();
+  //   }
+  // }
+
+  // if (query.includes("divided by")) {
+  //   const numbers = query.match(/\d+/g)?.map(Number);
+  //   if (numbers && numbers.length >= 2) {
+  //     return (numbers[0] / numbers[1]).toString();
+  //   }
+  // }
+
+  // if (query.includes("plus")) {
+  //   const numbers = query.match(/\d+/g)?.map(Number);
+  //   if (numbers) {
+  //     return numbers.reduce((sum, n) => sum + n, 0).toString();
+  //   }
+  // }
+  if (lowerQuery.includes("multiplied by")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length >= 2) {
-      return (numbers[0] - numbers[1]).toString();
+      return (numbers[0] * numbers[1]).toString();
     }
   }
 
-  if (query.includes("divided by")) {
+  if (lowerQuery.includes("divided by")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers && numbers.length >= 2) {
       return (numbers[0] / numbers[1]).toString();
     }
   }
 
-  if (query.includes("plus")) {
+  if (lowerQuery.includes("minus")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers && numbers.length >= 2) {
+      return (numbers[0] - numbers[1]).toString();
+    }
+  }
+
+  if (lowerQuery.includes("plus")) {
     const numbers = query.match(/\d+/g)?.map(Number);
     if (numbers) {
       return numbers.reduce((sum, n) => sum + n, 0).toString();
     }
   }
 
-  if (query.includes("to the power of")) {
-    const numbers = query.match(/\d+/g)?.map(Number);
+  if (query.toLowerCase().includes("to the power of")) {
+    const numbers = query.match(/\d+/g);
     if (numbers && numbers.length >= 2) {
-      return (numbers[0] ** numbers[1]).toString();
+      // Using BigInt ensures we don't lose precision on massive numbers!
+      return (BigInt(numbers[0]) ** BigInt(numbers[1])).toString();
     }
   }
+
+  
 
   if (query.includes("multiplied by") && query.includes("plus")) {
     const numbers = query.match(/\d+/g)?.map(Number);
