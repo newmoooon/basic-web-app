@@ -112,16 +112,6 @@ export default function QueryProcessor(query: string): string {
     }
   }
 
-  
-
-  if (query.includes("multiplied by") && query.includes("plus")) {
-    const numbers = query.match(/\d+/g)?.map(Number);
-    if (numbers && numbers.length >= 3) {
-      return (numbers[0] * numbers[1] + numbers[2]).toString();
-    }
-  }
-
-
 
 
   return "";
