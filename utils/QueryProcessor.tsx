@@ -31,7 +31,7 @@ export default function QueryProcessor(query: string): string {
       return (numbers[0] * numbers[1]).toString();
     }
   }
-  if (query.toLowerCase().includes("which of the following numbers is both a square and a cube")) {
+  if (query.includes("Which of the following numbers is both a square and a cube")) {
     const numbers = query.match(/\d+/g);
     if (numbers) {
       const results = numbers.filter(numStr => {
@@ -43,6 +43,21 @@ export default function QueryProcessor(query: string): string {
       return results.join(", "); 
     }
   }
+  if (query.includes("Which of the following numbers are primes")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+
+    if (numbers) {
+      const primes = numbers.filter(n => {
+        if (n < 2) return false;
+        for (let i = 2; i < n; i++) {
+          if (n % i === 0) return false;
+        }
+        return true;
+      });
+      return primes.join(", ");
+    }
+  }
+  
 
 
 
