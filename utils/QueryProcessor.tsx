@@ -14,6 +14,18 @@ export default function QueryProcessor(query: string): string {
   if (query.toLowerCase().includes("andrew id")) {
     return "xinyuew4"
   }
+  
+  if (query.includes("Which of the following numbers is the largest")) {
+    const numbers = query.match(/\d+/g)?.map(Number);
+    if (numbers) {
+      return Math.max(...numbers).toString();
+    }
+  }
+  const addMatch = query.match(/What is (\d+) plus (\d+)/i);
+  if (addMatch) {
+    return (parseInt(addMatch[1]) + parseInt(addMatch[2])).toString();
+  }
+
 
   return "";
 }
